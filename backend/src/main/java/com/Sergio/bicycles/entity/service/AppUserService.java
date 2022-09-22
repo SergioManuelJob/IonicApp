@@ -24,4 +24,24 @@ public class AppUserService implements IAppUserService {
 		return appUserDao.findById(id).get();
 	}
 
+	@Override
+	public void post(AppUser appUser) {
+		appUserDao.save(appUser);
+		
+	}
+
+	@Override
+	public void put(AppUser appUser, long id) {
+		appUserDao.findById(id).ifPresent((x)->{
+			appUser.setId(id);
+			appUserDao.save(appUser);
+		});
+		
+	}
+
+	@Override
+	public void delete(long id) {
+		appUserDao.deleteById(id);	
+	}
+
 }

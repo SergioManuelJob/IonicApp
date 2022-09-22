@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AppUser } from '../interfaces/app-user';
+import { AppuserService } from '../services/appuser.service';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +9,16 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  children: Array<AppUser> = []
+
+  constructor(private appUserService: AppuserService) {
+    this.getAllAppUsers();
+  }
+
+  getAllAppUsers(){
+    this.appUserService.getAllAppUsers().subscribe(data => {
+      this.children = data;
+    });
+  }
 
 }

@@ -3,13 +3,19 @@ package com.Sergio.bicycles.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Sergio.bicycles.entity.model.AppUser;
 import com.Sergio.bicycles.entity.service.IAppUserService;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class AppUserController {
 	
 	@Autowired
@@ -20,8 +26,24 @@ public class AppUserController {
 		return appUserService.getAll();
 	}
 	
-	public AppUser getOne(long id) {
+	@GetMapping("/appuser/{id}")
+	public AppUser getOne(@PathVariable(value = "id")long id) {
 		return appUserService.getOne(id);
+	}
+	
+	@PostMapping("/appuser")
+	public void post(AppUser appUser) {
+		appUserService.post(appUser);
+	}
+	
+	@PutMapping("/appuser/{id}")
+	public void put(AppUser appUser,@PathVariable(value = "id") long id) {
+		appUserService.put(appUser, id);
+	}
+	
+	@DeleteMapping("/appuser/{id}")
+	public void delete(AppUser appUser, @PathVariable(value = "id") long id) {
+		appUserService.delete(id);
 	}
 	
 }
